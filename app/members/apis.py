@@ -4,6 +4,8 @@ from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from .serializers import UserSerializer
+
 
 class AuthTokenAPIView(APIView):
     def post(self, request):
@@ -36,5 +38,6 @@ class AuthTokenAPIView(APIView):
         # 5. 생성된 Token의 'key'속성을 적절히 반환
         data = {
             'token': token.key,
+            'user': UserSerializer(user).data,
         }
         return Response(data)
